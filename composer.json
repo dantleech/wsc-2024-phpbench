@@ -1,0 +1,26 @@
+{
+    "name": "phpbench/wsc2024",
+    "description": "PHPBench WSC 2024",
+    "type": "project",
+    "require-dev": {
+        "phpbench/phpbench": "^1.2",
+        "phpunit/phpunit": "^11.2"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Phpbench\\Wsc2024\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Phpbench\\Wsc2024\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Daniel Leech",
+            "email": "daniel@dantleech.com"
+        }
+    ]
+}
