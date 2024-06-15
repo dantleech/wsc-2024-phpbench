@@ -16,23 +16,20 @@ final class Lexer
         return new Tokens($tokens);
     }
 
-    /**
-     * @return Token::T_*
-     */
-    private function resolveType(string $part): string
+    private function resolveType(string $part): TokenType
     {
         if (is_numeric($part)) {
             if (false === strpos($part, '.')) {
-                return Token::T_INTEGER;
+                return TokenType::INTEGER;
             }
-            return Token::T_FLOAT;
+            return TokenType::FLOAT;
         }
 
         return match($part) {
-            '=' => Token::T_EQUALS,
-            '+' => Token::T_PLUS,
-            '-' => Token::T_MINUS,
-            '*' => Token::T_MULTIPLY,
+            '=' => TokenType::EQUALS,
+            '+' => TokenType::PLUS,
+            '-' => TokenType::MINUS,
+            '*' => TokenType::MULTIPLY,
             default => Token::T_UNKNOWN,
         };
     }

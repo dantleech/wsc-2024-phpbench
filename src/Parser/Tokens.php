@@ -18,4 +18,14 @@ final class Tokens
     {
         return $this->tokens;
     }
+
+    public function consume(): Token
+    {
+        $token = array_shift($this->tokens);
+        if (null === $token) {
+            return new Token(TokenType::END, '');
+        }
+
+        return $token;
+    }
 }
