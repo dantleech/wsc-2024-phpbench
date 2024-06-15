@@ -1,0 +1,8 @@
+#!/usr/bin/env php
+<?php
+
+use WSC\ApplicationFactory;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+ApplicationFactory::createApplication()->run();
