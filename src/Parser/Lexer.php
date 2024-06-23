@@ -6,7 +6,8 @@ final class Lexer
 {
     public function lex(string $string): Tokens
     {
-        $parts = preg_split('{\s}', $string);
+        //$parts = preg_split('{\s}', $string);
+        $parts = explode(' ', $string);
         $tokens = [];
 
         foreach ($parts as $part) {
@@ -30,7 +31,7 @@ final class Lexer
             '+' => TokenType::PLUS,
             '-' => TokenType::MINUS,
             '*' => TokenType::MULTIPLY,
-            default => Token::T_UNKNOWN,
+            default => TokenType::UNKNOWN,
         };
     }
 }
