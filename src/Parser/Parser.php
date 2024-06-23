@@ -2,9 +2,9 @@
 
 namespace Phpbench\Wsc2024\Parser;
 
-use PhpBench\Expression\Ast\FloatNode;
 use Phpbench\Wsc2024\Parser\Ast\BinaryNode;
 use Phpbench\Wsc2024\Parser\Ast\BinaryOperators;
+use Phpbench\Wsc2024\Parser\Ast\FloatNode;
 use Phpbench\Wsc2024\Parser\Ast\IntegerNode;
 use Phpbench\Wsc2024\Parser\Exception\SyntaxError;
 

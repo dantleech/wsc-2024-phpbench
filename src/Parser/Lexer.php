@@ -27,7 +27,6 @@ final class Lexer
         }
 
         return match($part) {
-            '=' => TokenType::EQUALS,
             '+' => TokenType::PLUS,
             '-' => TokenType::MINUS,
             '*' => TokenType::MULTIPLY,

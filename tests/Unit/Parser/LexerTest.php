@@ -11,9 +11,8 @@ class LexerTest extends TestCase
 {
     public function testLex(): void
     {
-        $tokens = (new Lexer())->lex('= 3 + 2 1.1 - * &');
+        $tokens = (new Lexer())->lex('3 + 2 1.1 - * &');
         self::assertEquals([
-            new Token(TokenType::EQUALS, '='),
             new Token(TokenType::INTEGER, '3'),
             new Token(TokenType::PLUS, '+'),
             new Token(TokenType::INTEGER, '2'),
