@@ -39,5 +39,9 @@ final class EvaluatorTest extends TestCase
             '* 4 2',
             8,
         ];
+        yield 'nested expressions' => [
+            '* + 4 * 2 2 3',
+            24,
+        ];
     }
 }
