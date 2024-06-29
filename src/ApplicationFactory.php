@@ -1,8 +1,8 @@
 <?php
 
-namespace Phpbench\Wsc2024;
+namespace WSC;
 
-use Phpbench\Wsc2024\Console\CalculatorCommand;
+use WSC\Console\CalculatorCommand;
 use Symfony\Component\Console\Application;
 
 final class ApplicationFactory

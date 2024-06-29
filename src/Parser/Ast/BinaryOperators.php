@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpbench\Wsc2024\Parser\Ast;
+namespace WSC\Parser\Ast;
 
 enum BinaryOperators: string
 {

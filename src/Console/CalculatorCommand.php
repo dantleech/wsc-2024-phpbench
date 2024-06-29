@@ -1,8 +1,8 @@
 <?php
 
-namespace Phpbench\Wsc2024\Console;
+namespace WSC\Console;
 
-use Phpbench\Wsc2024\Calculator;
+use WSC\Calculator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

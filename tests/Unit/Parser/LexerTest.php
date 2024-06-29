@@ -1,11 +1,11 @@
 <?php
 
-namespace Phpbench\Wsc2024\Tests\Unit\Parser;
+namespace WSC\Tests\Unit\Parser;
 
 use PHPUnit\Framework\TestCase;
-use Phpbench\Wsc2024\Parser\Lexer;
-use Phpbench\Wsc2024\Parser\Token;
-use Phpbench\Wsc2024\Parser\TokenType;
+use WSC\Parser\Lexer;
+use WSC\Parser\Token;
+use WSC\Parser\TokenType;
 
 class LexerTest extends TestCase
 {

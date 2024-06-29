@@ -1,13 +1,13 @@
 <?php
 
-namespace Phpbench\Wsc2024\Tests\Unit\Parser;
+namespace WSC\Tests\Unit\Parser;
 
 use Generator;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Phpbench\Wsc2024\Parser\Evaluator;
-use Phpbench\Wsc2024\Parser\Lexer;
-use Phpbench\Wsc2024\Parser\Parser;
+use WSC\Parser\Evaluator;
+use WSC\Parser\Lexer;
+use WSC\Parser\Parser;
 
 final class EvaluatorTest extends TestCase
 {

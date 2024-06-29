@@ -1,11 +1,11 @@
 <?php
 
-namespace Phpbench\Wsc2024\Parser;
+namespace WSC\Parser;
 
-use Phpbench\Wsc2024\Parser\Ast\BinaryNode;
-use Phpbench\Wsc2024\Parser\Ast\BinaryOperators;
-use Phpbench\Wsc2024\Parser\Ast\FloatNode;
-use Phpbench\Wsc2024\Parser\Ast\IntegerNode;
+use WSC\Parser\Ast\BinaryNode;
+use WSC\Parser\Ast\BinaryOperators;
+use WSC\Parser\Ast\FloatNode;
+use WSC\Parser\Ast\IntegerNode;
 use RuntimeException;
 
 

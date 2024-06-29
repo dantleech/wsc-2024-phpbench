@@ -1,16 +1,16 @@
 <?php
 
-namespace Phpbench\Wsc2024\Tests\Unit\Parser;
+namespace WSC\Tests\Unit\Parser;
 
 use Generator;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Phpbench\Wsc2024\Parser\Ast\BinaryNode;
-use Phpbench\Wsc2024\Parser\Ast\IntegerNode;
-use Phpbench\Wsc2024\Parser\Ast\BinaryOperators;
-use Phpbench\Wsc2024\Parser\Lexer;
-use Phpbench\Wsc2024\Parser\Node;
-use Phpbench\Wsc2024\Parser\Parser;
+use WSC\Parser\Ast\BinaryNode;
+use WSC\Parser\Ast\IntegerNode;
+use WSC\Parser\Ast\BinaryOperators;
+use WSC\Parser\Lexer;
+use WSC\Parser\Node;
+use WSC\Parser\Parser;
 
 class ParserTest extends TestCase
 {

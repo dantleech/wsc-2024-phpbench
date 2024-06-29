@@ -1,12 +1,12 @@
 <?php
 
-namespace Phpbench\Wsc2024;
+namespace WSC;
 
-use Phpbench\Wsc2024\Parser\Evaluator;
-use Phpbench\Wsc2024\Parser\Lexer;
+use WSC\Parser\Evaluator;
+use WSC\Parser\Lexer;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;
-use Phpbench\Wsc2024\Parser\Parser;
+use WSC\Parser\Parser;
 
 final class Calculator
 {

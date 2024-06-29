@@ -1,9 +1,9 @@
 <?php
 
-namespace Phpbench\Wsc2024\Tests\Integration;
+namespace WSC\Tests\Integration;
 
 use PHPUnit\Framework\TestCase;
-use Phpbench\Wsc2024\ApplicationFactory;
+use WSC\ApplicationFactory;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 

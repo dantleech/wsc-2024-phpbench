@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpbench\Wsc2024\Parser;
+namespace WSC\Parser;
 
 enum TokenType: string
 {

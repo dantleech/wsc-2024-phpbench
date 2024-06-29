@@ -1,8 +1,8 @@
 <?php
 
-namespace Phpbench\Wsc2024\Parser\Ast;
+namespace WSC\Parser\Ast;
 
-use Phpbench\Wsc2024\Parser\Node;
+use WSC\Parser\Node;
 
 final class FloatNode implements Node
 {

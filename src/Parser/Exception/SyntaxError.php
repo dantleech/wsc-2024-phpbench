@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpbench\Wsc2024\Parser\Exception;
+namespace WSC\Parser\Exception;
 
 use RuntimeException;
 
