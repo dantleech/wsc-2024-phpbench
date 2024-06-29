@@ -19,6 +19,11 @@
             "Phpbench\\Wsc2024\\Tests\\": "tests/"
         }
     },
+    "scripts": {
+        "integrate": [
+            "./vendor/bin/phpunit"
+        ]
+    },
     "authors": [
         {
             "name": "Daniel Leech",
