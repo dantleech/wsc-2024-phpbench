@@ -40,7 +40,7 @@ final class Evaluator
             BinaryOperators::PLUS => $left + $right,
             BinaryOperators::MINUS => $left - $right,
             BinaryOperators::MULTIPLY => $left * $right,
-            BinaryOperators::EQUALS => $left == $right,
+            BinaryOperators::DIVIDE => $left / $right,
         };
     }
 }

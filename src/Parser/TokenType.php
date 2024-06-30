@@ -5,6 +5,7 @@ namespace WSC\Parser;
 enum TokenType: string
 {
     case PLUS = 'plus';
+    case DIVIDE = 'divide';
     case MINUS = 'minus';
     case MULTIPLY = 'multiply';
     case EQUALS = 'equals';

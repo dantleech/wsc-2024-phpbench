@@ -43,5 +43,9 @@ final class EvaluatorTest extends TestCase
             '* + 4 * 2 2 3',
             24,
         ];
+        yield 'division' => [
+            '/ 8 2',
+            4,
+        ];
     }
 }

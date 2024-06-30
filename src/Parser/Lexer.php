@@ -30,6 +30,7 @@ final class Lexer
             '+' => TokenType::PLUS,
             '-' => TokenType::MINUS,
             '*' => TokenType::MULTIPLY,
+            '/' => TokenType::DIVIDE,
             default => TokenType::UNKNOWN,
         };
     }

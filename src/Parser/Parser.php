@@ -23,6 +23,7 @@ final class Parser
             TokenType::PLUS => $this->parseBinaryNode($tokens, $token),
             TokenType::MINUS => $this->parseBinaryNode($tokens, $token),
             TokenType::MULTIPLY => $this->parseBinaryNode($tokens, $token),
+            TokenType::DIVIDE => $this->parseBinaryNode($tokens, $token),
             TokenType::EQUALS => $this->parseBinaryNode($tokens, $token),
             TokenType::INTEGER => new IntegerNode((int)$token->value),
             TokenType::FLOAT => new FloatNode((float)$token->value),

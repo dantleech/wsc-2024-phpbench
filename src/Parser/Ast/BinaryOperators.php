@@ -7,4 +7,6 @@ enum BinaryOperators: string
     case PLUS = '+';
     case MINUS = '-';
     case MULTIPLY = '*';
+    case DIVIDE = '/';
+
 }
