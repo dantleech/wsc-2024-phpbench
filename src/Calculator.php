@@ -4,8 +4,6 @@ namespace WSC;
 
 use WSC\Parser\Evaluator;
 use WSC\Parser\Lexer;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputInterface;
 use WSC\Parser\Parser;
 
 final class Calculator
