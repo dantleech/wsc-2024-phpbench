@@ -10,21 +10,6 @@
             "filter": null,
             "components": [
                 {
-                    "component": "text",
-                    "text": "Hello world! This is my paragraph of text. There are many like it but this one is mine."
-                },
-                {
-                    "component": "table_aggregate",
-                    "partition": "benchmark_name",
-                    "row": {
-                        "name": "first(partition['benchmark_name'])",
-                        "iterations": "count(partition['result_time_revs'])",
-                        "revs": "sum(partition['result_time_revs'])",
-                        "mode": "mode(partition['result_time_avg']) as time",
-                        "net_time": "sum(partition['result_time_net']) as time"
-                    }
-                },
-                {
                     "extends": "wsc_component"
                 }
             ],
@@ -41,7 +26,7 @@
                 "variant_name"
             ],
             "bar_partition": [
-                "benchmark_name"
+                "suite_tag"
             ],
             "y_axes_label": "yValue as time precision 1",
             "x_axes_label": null,

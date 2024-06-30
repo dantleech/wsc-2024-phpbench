@@ -21,6 +21,7 @@
 - Git
 - Composer (getcomposer.org)
 - PHP 8.1
+- Optionally xdebug and Kcachegrind!
 
 ---
 <!-- header: git clone git@github.com:dantleech/wsc-2024-phpbench -->
@@ -198,17 +199,6 @@ vendor/bin/phpbench run
 ```
 
 ---
-# Retry Threshold
-
-Keep going until we get a good answer!
-
-```
-vendor/bin/phpbench run --retry-threshold=2 --progress=blinken
-```
-
-![blinken](blinken.png)
-
----
 # Param Providers
 
 Parameterise your benchmark with `#[ParamProviders]`
@@ -260,18 +250,323 @@ class LexerBench {
 ```
 
 ---
+# Relative Standard Deviation
+
+How stable were the results?
+
+![](rstdev.png)
+
+Red is bad! It indicates lots of variation in the results.
+
+---
+# Retry Threshold
+
+Keep going until we get a good answer!
+
+```
+vendor/bin/phpbench run --retry-threshold=5
+```
+
+![](rstdevgood.png)
+
+
+Also try:
+
+```
+vendor/bin/phpbench run --retry-threshold=2 --progress=blinken
+```
+
+---
+# Setup
+
+Move the instantiation of the Lexer to a `setUp` method:
+
+```php
+// ...
+#[Bench\BeforeMethods("setUp")]
+class LexerBench
+{
+    private Lexer $lexer;
+
+    public function setUp(): void
+    {
+        $this->lexer = new Lexer();
+    }
+
+    public function benchLexer(array $params): void
+    {
+        // ...
+        $this->lexer->lex($params['expr']);
+    }
+}
+```
+---
+# Setup
+
+You can also use `__construct`:
+
+```php
+// ...
+class LexerBench
+{
+    private Lexer $lexer;
+
+    public function __construct()
+    {
+        $this->lexer = new Lexer();
+    }
+
+    public function benchLexer(array $params): void
+    {
+        // ...
+        $this->lexer->lex($params['expr']);
+    }
+}
+```
+
+---
 # Comparing Benchmarks
 
 Store and tag a benchmark run for future reference with `--tag`:
 
 ```
-./vendor/bin/phpbench run --tag=master
+$ vendor/bin/phpbench run --tag=master
 ```
 
 Compare the performance with the previous version:
 
 ```
-./vendor/bin/phpbench run --ref=master
+$ vendor/bin/phpbench run --ref=master
 ```
 
 Try and optimise the code!
+
+---
+# Assertions
+
+You can use assertions to cause PHPBench to fail if a benchmark takes too
+long:
+
+```php
+class LexerBench
+{
+    #[Bench\Assert('mode(variant.time.avg) > 1 microseconds +/- 10%')]
+    public function benchLexer(array $params): void
+    {
+        // ...
+    }
+}
+```
+
+```shell
+$ vendor/bin/phpbench run
+```
+
+---
+![assert fail](assertfail.png)
+
+---
+<!-- header: Calculator Bench: `part3` -->
+# Part 3
+
+---
+# Create a Calcuator Benchmark
+
+Using your new knowledge create a benchmark for the Calculator class:
+
+```php
+$calculator = Calculator::create();
+$calculator->calculate('+ 1 1');
+```
+
+- Use a `BeforeMethods` attribute.
+- Add `Iterations` and `Revs` attributes.
+- Introduce a `ParamProvider`
+- Run it with `--retry-threshold`
+- `--tag` and `--ref`
+- Use the `Assert` attribute attribute
+
+---
+<!-- header: Custom Reports: `part4` -->
+# Part 4
+
+---
+# Rendering reports
+
+Render reports to the terminal:
+
+```
+$ vendor/bin/phpbench run --report=benchmark
+```
+
+Render reports to HTML:
+
+```
+$ vendor/bin/phpbench run --report=bar_chart_time --output=html
+Written report to: /home/daniel/www/phpbench/phpbench-workshop/.phpbench/html/index.html
+```
+
+Open the page in your browser.
+
+---
+# Report on previous runs
+
+You can generate reports on any tagged benchmark. First create a tagged run:
+
+``` shell
+$ vendor/bin/phpbench run --tag=tag1
+```
+
+Then you can report on it independently with the `report` command:
+
+```shell
+$ vendor/bin/phpbench report --report=aggregate --ref=tag1
+```
+
+---
+![](graph.png)
+
+---
+# Customise a Report
+
+You can easily customise an existing report `generator`. Run the following command to
+generate the config for a new report *based* on the `bar_chart_time` generator:
+
+```
+vendor/bin/phpbench config:extend generator bar_chart_time wsc
+```
+
+Now open `phpbench.json`
+
+---
+
+```shell
+$ vendor/bin/phpbench config:extend generator bar_chart_time wsc
+```
+```
+{ // phpbench.json
+    // ...
+    "report.generators": {
+        "wsc": {
+            "title": null,
+            "components": [
+                {
+                    "extends": "bar_chart_time"
+                }
+            ],
+            // ...
+        }
+    }
+}
+```
+```shell
+$ vendor/bin/phpbench run --report=wsc
+```
+
+---
+# Edit a component
+
+The report rendered a bar chart "component" which can also be customized:
+
+```
+vendor/bin/phpbench config:extend component bar_chart_time wsc_component
+```
+
+---
+```
+vendor/bin/phpbench config:extend component bar_chart_time wsc_component
+```
+
+# Update the component
+
+Open `phpbench.json`. The new `report.components` section has been added. Change your generator to use it:
+
+```diff
+             "filter": null,
+             "components": [
+                 {
+-                    "extends": "bar_chart_time"
++                    "extends": "wsc_component"
+                 }
+             ],
+             "tabbed": false,
+             "tab_labels": [],
+             "generator": "component"
+         }
+```
+
+---
+# Customise the component
+
+![bg right contain](barnew.png)
+
+Let's create a new bar:
+
+```diff
+             "bar_partition": [
+-                "suite_tag"
++                "benchmark_name"
+             ],
+             "y_axes_label": "yValue as time precision 1",
+             "x_axes_label": null,
+```
+
+```
+vendor/bin/phpbench run --report=wsc
+```
+
+---
+# Add a new component
+
+Let's add a paragraph of text to the `wsc` generator:
+
+```json
+{
+    // ...
+    "report.generators": {
+        "wsc": {
+            // ...
+            "components": [
+                {
+                    "component": "text",
+                    "text": "Hello world! This is my paragraph of text. There are many like it but this one is mine."
+                },
+                // ...
+            ]
+        }
+    }
+}
+```
+
+---
+# Add a table
+
+```json
+{
+    "report.generators": {
+        "wsc": {
+            "components": [
+                // ...
+                {
+                    "component": "table_aggregate",
+                    "partition": "benchmark_name",
+                    "row": {
+                        "name": "first(partition['benchmark_name'])",
+                        "iterations": "count(partition['result_time_revs'])",
+                        "revs": "sum(partition['result_time_revs'])",
+                        "mode": "mode(partition['result_time_avg']) as time",
+                        "net_time": "sum(partition['result_time_net']) as time"
+                    }
+                },
+            ]
+        }
+    }
+}
+```
+
+---
+# XDebug and KCacheGrind
+
+```
+vendor/bin/phpbench xdebug:profile
+```

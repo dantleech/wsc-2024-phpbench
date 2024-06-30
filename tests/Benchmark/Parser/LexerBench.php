@@ -19,6 +19,7 @@ class LexerBench
     }
 
     #[Bench\ParamProviders('provideLexer')]
+    #[Bench\Assert('mode(variant.time.avg) < 5 microseconds +/- 10%')]
     public function benchLexer(array $params): void
     {
         $this->lexer->lex($params['expr']);
