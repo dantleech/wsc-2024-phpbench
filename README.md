@@ -33,4 +33,5 @@ slides. The following branches exist:
 - `part4`
 - `part5`
 
-Run `git checkout part2` for example when the slides are on `part2`.
+Run `git checkout part2` for example when the slides are on `part2`. This
+branch is also `part1` so you start on `part2`!
