@@ -1,5 +1,53 @@
 {
     "$schema": "vendor/phpbench/phpbench/phpbench.schema.json",
     "runner.path": "tests/Benchmark",
-    "runner.bootstrap": "vendor/autoload.php"
+    "runner.bootstrap": "vendor/autoload.php",
+    "report.generators": {
+        "wsc": {
+            "title": null,
+            "description": null,
+            "partition": [],
+            "filter": null,
+            "components": [
+                {
+                    "extends": "wsc_component"
+                },
+                {
+                    "component": "text",
+                    "text": "Hello world! This is my paragraph of text. There are many like it but this one is mine!"
+                },
+                {
+                    "component": "table_aggregate",
+                    "partition": "benchmark_name",
+                    "row": {
+                        "name": "first(partition['benchmark_name'])",
+                        "iterations": "first(partition['variant_iterations'])",
+                        "revs": "sum(partition['result_time_revs'])",
+                        "mode": "mode(partition['result_time_avg']) as time",
+                        "net_time": "sum(partition['result_time_net']) as time"
+                    }
+                }
+            ],
+            "tabbed": false,
+            "tab_labels": [],
+            "generator": "component"
+        }
+    },
+    "report.components": {
+        "wsc_component": {
+            "title": "Average iteration times by variant",
+            "x_partition": [
+                "subject_name",
+                "variant_name"
+            ],
+            "bar_partition": [
+                "benchmark_name"
+            ],
+            "y_axes_label": "yValue as time precision 1",
+            "x_axes_label": null,
+            "y_error_margin": "stdev(partition[\"result_time_avg\"])",
+            "component": "bar_chart_aggregate",
+            "y_expr": "mode(partition[\"result_time_avg\"])"
+        }
+    }
 }
