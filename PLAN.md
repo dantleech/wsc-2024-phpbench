@@ -1,3 +1,17 @@
+Ideass
+------
+
+- Debugging!
+- Read expressions from a file
+- Data strucrture of reports
+
+Speed Run
+---------
+
+- 28 minutes
+
+- Part 1: 4:37
+
 # PHPBench TODO
 
 - `config:initialize` command

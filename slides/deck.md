@@ -11,9 +11,11 @@
 
 ---
 # About this workshop
-* **Part 0**: Introduction
-* **Part 1**: Writing Benchmarks
-* **Part 2**: Customising PHPBench
+- Introduction
+- Creating benchmarks
+- Refininement
+- Excercise
+- Reports
 ---
 <!-- header: git clone git@github.com:dantleech/wsc-2024-phpbench -->
 # Prerequsities
@@ -80,7 +82,7 @@ composer install
 Run the application:
 
 ```
-$ bin/console "* 2 + 4 * 8 8"
+$ bin/calculate "* 2 + 4 * 8 8"
 The answer is 136
 ```
 
@@ -338,8 +340,11 @@ Compare the performance with the previous version:
 ```
 $ vendor/bin/phpbench run --ref=master
 ```
+![contain](compare.png)
 
 Try and optimise the code!
+
+
 
 ---
 # Assertions
@@ -350,7 +355,7 @@ long:
 ```php
 class LexerBench
 {
-    #[Bench\Assert('mode(variant.time.avg) > 1 microseconds +/- 10%')]
+    #[Bench\Assert('mode(variant.time.avg) < 1 microseconds +/- 10%')]
     public function benchLexer(array $params): void
     {
         // ...
@@ -551,8 +556,42 @@ Let's add a paragraph of text to the `wsc` generator:
                     "component": "table_aggregate",
                     "partition": "benchmark_name",
                     "row": {
+                        "net_time": "sum(partition['result_time_net']) as time"
+                    }
+                },
+            ]
+        }
+    }
+}
+```
+
+---
+# Inspecting available columns
+
+![bg right:35% contain](bare.png)
+
+The `partition` is a data frame. You can check which columns are available with
+the `bare` report:
+
+```
+vendor/bin/phpbench report --ref=latest --report=bare-vertical
+```
+
+---
+# Add a table
+
+```json
+{
+    "report.generators": {
+        "wsc": {
+            "components": [
+                // ...
+                {
+                    "component": "table_aggregate",
+                    "partition": "benchmark_name",
+                    "row": {
                         "name": "first(partition['benchmark_name'])",
-                        "iterations": "count(partition['result_time_revs'])",
+                        "iterations": "count(partition['variant_iterations'])",
                         "revs": "sum(partition['result_time_revs'])",
                         "mode": "mode(partition['result_time_avg']) as time",
                         "net_time": "sum(partition['result_time_net']) as time"
@@ -565,8 +604,48 @@ Let's add a paragraph of text to the `wsc` generator:
 ```
 
 ---
-# XDebug and KCacheGrind
+# Expression Functions
+
+- `first` return the first entry in the column.
+- `count` return the number of values in the column
+- `sum` return the sum of the values
+- `mean` return the _average_.
+- `mode` return the KDE mode (better than the average!)
+- `stdev` return standard deviation
+- `max` and `min` min and max values
+
+https://phpbench.readthedocs.io/en/latest/expression.html#functions
 
 ```
-vendor/bin/phpbench xdebug:profile
+vendor/bin/phpbench eval "first([1,2,3])"
+vendor/bin/phpbench eval "mode([1,2,3])"
 ```
+
+---
+# Time and Memory Units
+
+You can coerce any number in a time unit:
+
+```
+vendor/bin/phpbench eval "10 as microseconds"
+vendor/bin/phpbench eval "1000 as milliseconds"
+vendor/bin/phpbench eval "2000000 as seconds"
+vendor/bin/phpbench eval "2301020 as time"
+```
+
+And the number will be formatted:
+
+```
+vendor/bin/phpbench eval "1000000 as seconds"                                                                                      part2 ✱
+1.000s
+= 1.000s
+```
+
+---
+# Challenge
+
+Update your report to:
+
+- Show the PHP version
+- Add the average sys load
+- Show the average memory usage in kilobytes
