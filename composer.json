@@ -5,8 +5,8 @@
     "require-dev": {
         "php": "^8.1",
         "phpbench/phpbench": "dev-master",
-        "phpunit/phpunit": "^11.2",
-        "symfony/var-dumper": "^7.1"
+        "phpunit/phpunit": "^10.2",
+        "symfony/var-dumper": "^6.0"
     },
     "license": "MIT",
     "autoload": {
@@ -23,6 +23,11 @@
         "integrate": [
             "./vendor/bin/phpunit"
         ]
+    },
+    "config": {
+        "platform": {
+            "php": "8.1.0"
+        }
     },
     "authors": [
         {
